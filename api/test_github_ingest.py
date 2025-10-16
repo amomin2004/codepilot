@@ -24,6 +24,7 @@ def test_is_github_url():
     test_cases = [
         ("https://github.com/facebook/react", True),
         ("http://github.com/user/repo", True),
+        ("https:/github.com/user/repo", True),  # Malformed (one slash)
         ("git@github.com:user/repo.git", True),
         ("github.com/user/repo", True),
         ("/path/to/local/repo", False),
@@ -46,6 +47,7 @@ def test_normalize_github_url():
     test_cases = [
         ("https://github.com/facebook/react", "https://github.com/facebook/react.git"),
         ("http://github.com/user/repo", "https://github.com/user/repo.git"),
+        ("https:/github.com/user/repo", "https://github.com/user/repo.git"),  # Malformed
         ("git@github.com:user/repo.git", "https://github.com/user/repo.git"),
         ("github.com/user/repo", "https://github.com/user/repo.git"),
         ("https://github.com/user/repo/", "https://github.com/user/repo.git"),

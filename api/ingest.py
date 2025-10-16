@@ -28,14 +28,21 @@ def is_github_url(path_or_url: str) -> bool:
     if not isinstance(path_or_url, str):
         return False
     
-    # Common GitHub URL patterns
+    # Normalize the input
+    normalized = path_or_url.strip().lower()
+    
+    # Common GitHub URL patterns (with flexible slash handling)
     github_patterns = [
-        r'^https?://github\.com/',
+        r'^https?:/?/?github\.com/',  # https://github.com or https:/github.com
         r'^git@github\.com:',
         r'^github\.com/',
     ]
     
-    return any(re.match(pattern, path_or_url.lower()) for pattern in github_patterns)
+    # Also check if it simply contains github.com
+    if 'github.com' in normalized:
+        return True
+    
+    return any(re.match(pattern, normalized) for pattern in github_patterns)
 
 
 def normalize_github_url(github_url: str) -> str:
@@ -53,7 +60,7 @@ def normalize_github_url(github_url: str) -> str:
         git@github.com:user/repo.git -> https://github.com/user/repo.git
         github.com/user/repo -> https://github.com/user/repo.git
     """
-    # Remove trailing slashes
+    # Remove trailing slashes and whitespace
     url = github_url.strip().rstrip('/')
     
     # Remove .git suffix if present (we'll add it back later)
@@ -64,9 +71,9 @@ def normalize_github_url(github_url: str) -> str:
     if url.startswith('git@github.com:'):
         url = url.replace('git@github.com:', 'https://github.com/')
     
-    # Convert http to https
-    if url.startswith('http://'):
-        url = url.replace('http://', 'https://')
+    # Fix malformed http/https (missing slashes)
+    # https:/github.com -> https://github.com
+    url = re.sub(r'^https?:/?/?', 'https://', url)
     
     # Add https:// if missing
     if not url.startswith('https://'):

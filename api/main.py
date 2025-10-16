@@ -14,7 +14,15 @@ from typing import Optional
 from datetime import datetime
 import numpy as np
 
-from ingest import ingest_repo, save_chunks_jsonl, load_chunks_jsonl, ChunkMetadata
+from ingest import (
+    ingest_repo, 
+    save_chunks_jsonl, 
+    load_chunks_jsonl, 
+    ChunkMetadata,
+    is_github_url,
+    clone_github_repo,
+    cleanup_temp_repo,
+)
 from embeddings import embed_texts, embed_single, load_embedding_model
 from vector_index import build_index, save_index, load_index, search_index
 from search import search_pipeline
@@ -170,9 +178,6 @@ async def ingest(request: IngestRequest):
     
     logger.info(f"Starting ingestion of {request.repo_path}")
     start_time = time.time()
-    
-    # Import GitHub functions
-    from api.ingest import is_github_url, clone_github_repo, cleanup_temp_repo
     
     # Check if it's a GitHub URL
     is_github = is_github_url(request.repo_path)
