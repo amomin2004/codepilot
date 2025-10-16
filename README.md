@@ -216,10 +216,6 @@ python api/test_phase2.py
 - Incremental indexing
 - IDE extensions
 
-## 📝 License
-
-MIT License - see [LICENSE](LICENSE) file for details
-
 ## 🙏 Acknowledgments
 
 - FastAPI for test data
