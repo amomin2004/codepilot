@@ -261,8 +261,6 @@ python api/test_phase2.py
 - Incremental indexing
 - IDE extensions
 
-
-
 ## 🙏 Acknowledgments
 
 - FastAPI for test data
