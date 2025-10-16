@@ -20,3 +20,7 @@ numpy==1.26.3
 pytest==7.4.3
 requests==2.31.0
 
+# Evaluation & Metrics
+matplotlib==3.8.2
+seaborn==0.13.0
+

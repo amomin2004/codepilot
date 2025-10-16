@@ -1,0 +1,288 @@
+{
+  "dataset_name": "CodePilot FastAPI Golden Set",
+  "version": "1.0",
+  "description": "Carefully crafted test queries for evaluating semantic code search on the FastAPI repository",
+  "repository": "data/fastapi/fastapi",
+  "total_queries": 25,
+  "categories": {
+    "authentication": "Security and authentication related queries",
+    "routing": "URL routing and endpoint handling",
+    "middleware": "Middleware and request processing",
+    "validation": "Data validation and serialization",
+    "error_handling": "Error handling and exceptions",
+    "websockets": "WebSocket functionality",
+    "dependencies": "Dependency injection system",
+    "openapi": "OpenAPI/Swagger documentation",
+    "testing": "Testing utilities and helpers"
+  },
+  "queries": [
+    {
+      "id": "auth_001",
+      "category": "authentication",
+      "query": "How do I validate JWT tokens in FastAPI?",
+      "expected_files": [
+        "security/oauth2.py",
+        "security/http.py",
+        "security/api_key.py"
+      ],
+      "expected_keywords": ["JWT", "token", "validate", "security", "oauth"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "auth_002", 
+      "category": "authentication",
+      "query": "Where is HTTP Basic authentication implemented?",
+      "expected_files": [
+        "security/http.py"
+      ],
+      "expected_keywords": ["HTTPBasic", "basic", "authentication", "credentials"],
+      "difficulty": "easy"
+    },
+    {
+      "id": "auth_003",
+      "category": "authentication", 
+      "query": "How do I handle API key authentication?",
+      "expected_files": [
+        "security/api_key.py"
+      ],
+      "expected_keywords": ["APIKey", "api_key", "header", "query", "cookie"],
+      "difficulty": "easy"
+    },
+    {
+      "id": "routing_001",
+      "category": "routing",
+      "query": "How do I define API routes with path parameters?",
+      "expected_files": [
+        "routing.py"
+      ],
+      "expected_keywords": ["route", "path", "parameter", "APIRouter"],
+      "difficulty": "easy"
+    },
+    {
+      "id": "routing_002",
+      "category": "routing",
+      "query": "Where are WebSocket routes handled?",
+      "expected_files": [
+        "routing.py"
+      ],
+      "expected_keywords": ["WebSocket", "websocket", "route", "endpoint"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "routing_003",
+      "category": "routing",
+      "query": "How do I add middleware to routes?",
+      "expected_files": [
+        "routing.py"
+      ],
+      "expected_keywords": ["middleware", "route", "dependencies"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "middleware_001",
+      "category": "middleware",
+      "query": "Where is CORS middleware implemented?",
+      "expected_files": [
+        "middleware/cors.py"
+      ],
+      "expected_keywords": ["CORS", "middleware", "cors", "origin"],
+      "difficulty": "easy"
+    },
+    {
+      "id": "middleware_002",
+      "category": "middleware",
+      "query": "How do I add custom middleware to FastAPI?",
+      "expected_files": [
+        "applications.py"
+      ],
+      "expected_keywords": ["middleware", "add_middleware", "custom"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "validation_001",
+      "category": "validation",
+      "query": "Where is request body validation handled?",
+      "expected_files": [
+        "routing.py"
+      ],
+      "expected_keywords": ["validation", "body", "request", "pydantic"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "validation_002",
+      "category": "validation",
+      "query": "How do I validate query parameters?",
+      "expected_files": [
+        "params.py"
+      ],
+      "expected_keywords": ["Query", "query", "parameter", "validation"],
+      "difficulty": "easy"
+    },
+    {
+      "id": "error_001",
+      "category": "error_handling",
+      "query": "Where are HTTP exceptions defined?",
+      "expected_files": [
+        "exceptions.py"
+      ],
+      "expected_keywords": ["HTTPException", "exception", "error", "status"],
+      "difficulty": "easy"
+    },
+    {
+      "id": "error_002",
+      "category": "error_handling",
+      "query": "How do I handle validation errors?",
+      "expected_files": [
+        "exception_handlers.py"
+      ],
+      "expected_keywords": ["validation", "error", "handler", "RequestValidationError"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "websocket_001",
+      "category": "websockets",
+      "query": "How do I create WebSocket connections?",
+      "expected_files": [
+        "websockets.py"
+      ],
+      "expected_keywords": ["WebSocket", "websocket", "connection", "accept"],
+      "difficulty": "easy"
+    },
+    {
+      "id": "websocket_002",
+      "category": "websockets",
+      "query": "Where is WebSocket message handling implemented?",
+      "expected_files": [
+        "websockets.py"
+      ],
+      "expected_keywords": ["receive", "send", "message", "websocket"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "deps_001",
+      "category": "dependencies",
+      "query": "How does dependency injection work in FastAPI?",
+      "expected_files": [
+        "dependencies/utils.py"
+      ],
+      "expected_keywords": ["dependency", "injection", "Depends", "resolve"],
+      "difficulty": "hard"
+    },
+    {
+      "id": "deps_002",
+      "category": "dependencies",
+      "query": "Where are dependency resolvers implemented?",
+      "expected_files": [
+        "dependencies/utils.py"
+      ],
+      "expected_keywords": ["resolver", "dependency", "resolve", "call"],
+      "difficulty": "hard"
+    },
+    {
+      "id": "openapi_001",
+      "category": "openapi",
+      "query": "How is OpenAPI schema generated?",
+      "expected_files": [
+        "openapi/utils.py"
+      ],
+      "expected_keywords": ["OpenAPI", "schema", "generate", "swagger"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "openapi_002",
+      "category": "openapi",
+      "query": "Where are API documentation endpoints defined?",
+      "expected_files": [
+        "openapi/docs.py"
+      ],
+      "expected_keywords": ["docs", "swagger", "redoc", "documentation"],
+      "difficulty": "easy"
+    },
+    {
+      "id": "testing_001",
+      "category": "testing",
+      "query": "How do I create test clients for FastAPI?",
+      "expected_files": [
+        "testclient.py"
+      ],
+      "expected_keywords": ["TestClient", "test", "client", "httpx"],
+      "difficulty": "easy"
+    },
+    {
+      "id": "app_001",
+      "category": "routing",
+      "query": "How do I create a FastAPI application instance?",
+      "expected_files": [
+        "applications.py"
+      ],
+      "expected_keywords": ["FastAPI", "app", "application", "instance"],
+      "difficulty": "easy"
+    },
+    {
+      "id": "app_002",
+      "category": "routing",
+      "query": "Where are application startup events handled?",
+      "expected_files": [
+        "applications.py"
+      ],
+      "expected_keywords": ["startup", "event", "lifespan", "on_event"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "response_001",
+      "category": "validation",
+      "query": "How do I customize response models?",
+      "expected_files": [
+        "responses.py"
+      ],
+      "expected_keywords": ["response", "model", "Response", "JSONResponse"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "param_001",
+      "category": "validation",
+      "query": "Where are path parameter validators defined?",
+      "expected_files": [
+        "params.py"
+      ],
+      "expected_keywords": ["Path", "parameter", "validation", "path"],
+      "difficulty": "easy"
+    },
+    {
+      "id": "header_001",
+      "category": "validation",
+      "query": "How do I extract headers from requests?",
+      "expected_files": [
+        "params.py"
+      ],
+      "expected_keywords": ["Header", "header", "request", "extract"],
+      "difficulty": "easy"
+    },
+    {
+      "id": "cookie_001",
+      "category": "validation",
+      "query": "Where is cookie parameter handling implemented?",
+      "expected_files": [
+        "params.py"
+      ],
+      "expected_keywords": ["Cookie", "cookie", "parameter", "request"],
+      "difficulty": "easy"
+    }
+  ],
+  "evaluation_criteria": {
+    "precision_at_5": "Percentage of queries where at least one expected file appears in top 5 results",
+    "precision_at_10": "Percentage of queries where at least one expected file appears in top 10 results",
+    "mean_reciprocal_rank": "Average reciprocal rank of first relevant result",
+    "latency_p50": "50th percentile of search latency in milliseconds",
+    "latency_p95": "95th percentile of search latency in milliseconds",
+    "latency_p99": "99th percentile of search latency in milliseconds"
+  },
+  "targets": {
+    "precision_at_5": 0.80,
+    "precision_at_10": 0.90,
+    "mean_reciprocal_rank": 0.70,
+    "latency_p50": 200,
+    "latency_p95": 500,
+    "latency_p99": 1000
+  }
+}
