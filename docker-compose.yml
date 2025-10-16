@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  # CodePilot API Backend
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: codepilot-api
+    ports:
+      - "8000:8000"
+    volumes:
+      # Mount output directory to persist index and chunks
+      - ./output:/app/output
+      # Mount data directory for sample repositories
+      - ./data:/app/data
+      # Allow indexing external repositories
+      - /:/host:ro
+    environment:
+      - PYTHONPATH=/app
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # CodePilot Frontend
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    container_name: codepilot-web
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+# Named volumes for persistence
+volumes:
+  codepilot_data:
+    driver: local
+  codepilot_index:
+    driver: local
+
+# Network for service communication
+networks:
+  default:
+    name: codepilot-network

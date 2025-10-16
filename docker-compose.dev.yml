@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  # CodePilot API Backend (Development)
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: codepilot-api-dev
+    ports:
+      - "8000:8000"
+    volumes:
+      # Mount source code for development
+      - ./api:/app/api
+      - ./output:/app/output
+      - ./data:/app/data
+      # Allow indexing external repositories
+      - /:/host:ro
+    environment:
+      - PYTHONPATH=/app
+      - PYTHONUNBUFFERED=1
+      - ENVIRONMENT=development
+    restart: unless-stopped
+    command: ["python", "-m", "uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+
+  # CodePilot Frontend (Development)
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    container_name: codepilot-web-dev
+    ports:
+      - "3000:3000"
+    volumes:
+      # Mount source code for development
+      - ./web:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    depends_on:
+      - api
+    restart: unless-stopped
+    command: ["npm", "run", "dev"]
+
+# Network for service communication
+networks:
+  default:
+    name: codepilot-dev-network
