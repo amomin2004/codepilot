@@ -20,6 +20,7 @@ CodePilot is a **semantic code search engine** that lets you search your codebas
 ### 🔥 Key Features
 
 - 🧠 **Natural Language Search** - Ask questions in plain English
+- 🌐 **GitHub Integration** - Search any public GitHub repository instantly
 - 🌍 **Multi-Language Support** - Python, TypeScript, JavaScript, Go, Java, Rust, C++, Ruby, PHP
 - ⚡ **Lightning Fast** - 31.5ms average search latency
 - 🎨 **Beautiful UI** - Modern web interface with syntax highlighting
@@ -28,6 +29,7 @@ CodePilot is a **semantic code search engine** that lets you search your codebas
 - 📊 **Performance Metrics** - Built-in evaluation and benchmarking
 - 🐳 **Docker Ready** - One-command deployment
 - 🔌 **RESTful API** - Complete API for integrations
+- ☁️ **Cloud-Ready** - Deploy to Vercel, Railway, or any cloud platform
 
 ## 🏗️ Architecture
 
@@ -87,11 +89,19 @@ open http://localhost:3000
 **Via Web Interface:**
 1. Go to http://localhost:3000
 2. Click **"Ingest"** in navigation
-3. Enter repository path: `/path/to/your/project`
+3. Enter **GitHub URL** or local path:
+   - GitHub: `https://github.com/facebook/react`
+   - Local: `/path/to/your/project`
 4. Click **"Start Indexing"**
 
 **Via API:**
 ```bash
+# Index a GitHub repository
+curl -X POST http://localhost:8000/ingest \
+  -H "Content-Type: application/json" \
+  -d '{"repo_path": "https://github.com/facebook/react"}'
+
+# Index a local repository
 curl -X POST http://localhost:8000/ingest \
   -H "Content-Type: application/json" \
   -d '{"repo_path": "/path/to/your/project"}'

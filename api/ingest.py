@@ -4,6 +4,146 @@ import hashlib
 import json
 from typing import NamedTuple
 import chardet
+import subprocess
+import tempfile
+import shutil
+import re
+from urllib.parse import urlparse
+
+
+# ========================
+# GitHub URL Support
+# ========================
+
+def is_github_url(path_or_url: str) -> bool:
+    """
+    Check if the input is a GitHub URL.
+    
+    Args:
+        path_or_url: Either a local path or a GitHub URL
+        
+    Returns:
+        True if it's a GitHub URL, False otherwise
+    """
+    if not isinstance(path_or_url, str):
+        return False
+    
+    # Common GitHub URL patterns
+    github_patterns = [
+        r'^https?://github\.com/',
+        r'^git@github\.com:',
+        r'^github\.com/',
+    ]
+    
+    return any(re.match(pattern, path_or_url.lower()) for pattern in github_patterns)
+
+
+def normalize_github_url(github_url: str) -> str:
+    """
+    Normalize GitHub URL to HTTPS format for cloning.
+    
+    Args:
+        github_url: Any GitHub URL format
+        
+    Returns:
+        Normalized HTTPS clone URL
+        
+    Examples:
+        https://github.com/user/repo -> https://github.com/user/repo.git
+        git@github.com:user/repo.git -> https://github.com/user/repo.git
+        github.com/user/repo -> https://github.com/user/repo.git
+    """
+    # Remove trailing slashes
+    url = github_url.strip().rstrip('/')
+    
+    # Remove .git suffix if present (we'll add it back later)
+    if url.endswith('.git'):
+        url = url[:-4]
+    
+    # Convert SSH to HTTPS
+    if url.startswith('git@github.com:'):
+        url = url.replace('git@github.com:', 'https://github.com/')
+    
+    # Convert http to https
+    if url.startswith('http://'):
+        url = url.replace('http://', 'https://')
+    
+    # Add https:// if missing
+    if not url.startswith('https://'):
+        url = 'https://' + url
+    
+    # Ensure .git suffix
+    url = url + '.git'
+    
+    return url
+
+
+def clone_github_repo(github_url: str, temp_dir: Path = None) -> Path:
+    """
+    Clone a GitHub repository to a temporary directory.
+    
+    Args:
+        github_url: GitHub repository URL
+        temp_dir: Optional temporary directory (created if None)
+        
+    Returns:
+        Path to the cloned repository
+        
+    Raises:
+        RuntimeError: If git clone fails
+    """
+    # Normalize the URL
+    clone_url = normalize_github_url(github_url)
+    
+    # Extract repo name for the directory
+    repo_name = clone_url.rstrip('.git').split('/')[-1]
+    
+    # Create temp directory if not provided
+    if temp_dir is None:
+        temp_dir = Path(tempfile.mkdtemp(prefix=f'codepilot_{repo_name}_'))
+    else:
+        temp_dir = Path(temp_dir)
+        temp_dir.mkdir(parents=True, exist_ok=True)
+    
+    clone_path = temp_dir / repo_name
+    
+    try:
+        # Clone with depth=1 for faster cloning (shallow clone)
+        result = subprocess.run(
+            ['git', 'clone', '--depth', '1', clone_url, str(clone_path)],
+            capture_output=True,
+            text=True,
+            timeout=300  # 5 minute timeout
+        )
+        
+        if result.returncode != 0:
+            raise RuntimeError(f"Git clone failed: {result.stderr}")
+        
+        return clone_path
+        
+    except subprocess.TimeoutExpired:
+        raise RuntimeError(f"Git clone timed out after 5 minutes")
+    except FileNotFoundError:
+        raise RuntimeError("Git is not installed. Please install git to clone repositories.")
+    except Exception as e:
+        # Clean up on failure
+        if clone_path.exists():
+            shutil.rmtree(clone_path, ignore_errors=True)
+        raise RuntimeError(f"Failed to clone repository: {str(e)}")
+
+
+def cleanup_temp_repo(repo_path: Path) -> None:
+    """
+    Clean up temporary cloned repository.
+    
+    Args:
+        repo_path: Path to the cloned repository
+    """
+    try:
+        if repo_path.exists() and repo_path.is_dir():
+            shutil.rmtree(repo_path, ignore_errors=True)
+    except Exception as e:
+        print(f"Warning: Failed to clean up temporary repo: {e}")
 
 
 # ========================

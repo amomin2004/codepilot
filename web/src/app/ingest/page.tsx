@@ -75,18 +75,18 @@ export default function IngestPage() {
               {/* Repository Path */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Repository Path
+                  Repository Path or GitHub URL
                 </label>
                 <input
                   type="text"
                   value={repoPath}
                   onChange={(e) => setRepoPath(e.target.value)}
-                  placeholder="e.g., data/fastapi/fastapi or /path/to/your/repo"
+                  placeholder="e.g., https://github.com/facebook/react or /path/to/local/repo"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black placeholder-gray-500"
                   disabled={loading}
                 />
                 <p className="text-sm text-gray-500 mt-1">
-                  Path to the repository folder (relative to the API server or absolute path)
+                  GitHub URL (e.g., https://github.com/user/repo) or local path (e.g., /path/to/repo)
                 </p>
               </div>
 

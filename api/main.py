@@ -164,17 +164,34 @@ async def status():
 async def ingest(request: IngestRequest):
     """
     Ingest a code repository: discover files, chunk, embed, and build index.
+    Supports both local paths and GitHub URLs.
     """
     global chunks, index, last_ingest_time
     
     logger.info(f"Starting ingestion of {request.repo_path}")
     start_time = time.time()
     
+    # Import GitHub functions
+    from api.ingest import is_github_url, clone_github_repo, cleanup_temp_repo
+    
+    # Check if it's a GitHub URL
+    is_github = is_github_url(request.repo_path)
+    temp_repo_path = None
+    actual_repo_path = request.repo_path
+    
     try:
+        # If GitHub URL, clone it first
+        if is_github:
+            logger.info(f"Detected GitHub URL: {request.repo_path}")
+            logger.info("Cloning repository (this may take a minute)...")
+            temp_repo_path = clone_github_repo(request.repo_path)
+            actual_repo_path = str(temp_repo_path)
+            logger.info(f"✓ Repository cloned to {actual_repo_path}")
+        
         # Step 1: Ingest and chunk
         logger.info("Step 1/3: Ingesting repository...")
         new_chunks, stats = ingest_repo(
-            repo_path=request.repo_path,
+            repo_path=actual_repo_path,
             include_exts=request.include_exts,
             exclude_dirs=request.exclude_dirs,
             window=request.window,
@@ -223,6 +240,13 @@ async def ingest(request: IngestRequest):
     except Exception as e:
         logger.error(f"Ingestion failed: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Ingestion failed: {str(e)}")
+    
+    finally:
+        # Clean up temporary GitHub clone
+        if temp_repo_path:
+            logger.info("Cleaning up temporary repository...")
+            cleanup_temp_repo(temp_repo_path)
+            logger.info("✓ Cleanup complete")
 
 
 @app.get("/search", response_model=SearchResponse, tags=["Search"])
