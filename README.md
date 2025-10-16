@@ -373,51 +373,6 @@ python evaluation/test_eval.py
 - [ ] Advanced analytics and insights
 - [ ] Custom model training
 
-## 🤝 Contributing
-
-We welcome contributions! Here's how to get started:
-
-### 1. Fork and Clone
-```bash
-git clone https://github.com/yourusername/codepilot.git
-cd codepilot
-```
-
-### 2. Set Up Development Environment
-```bash
-# Install dependencies
-pip install -r requirements.txt
-cd web && npm install && cd ..
-
-# Run tests
-python evaluation/test_eval.py
-```
-
-### 3. Make Changes
-- Add new features to `api/` or `web/src/`
-- Add tests to `evaluation/`
-- Update documentation
-
-### 4. Test Your Changes
-```bash
-# Run evaluation
-python evaluation/cli_eval.py
-
-# Test Docker setup
-docker-compose up -d
-```
-
-### 5. Submit Pull Request
-- Fork the repository
-- Create a feature branch
-- Make your changes
-- Add tests
-- Submit a pull request
-
-## 📄 License
-
-MIT License - see [LICENSE](LICENSE) file for details.
-
 ## 🙏 Acknowledgments
 
 - [FastAPI](https://fastapi.tiangolo.com/) - Excellent Python web framework
@@ -427,13 +382,6 @@ MIT License - see [LICENSE](LICENSE) file for details.
 - [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
 - [Lucide React](https://lucide.dev/) - Beautiful icon library
 
-## 📞 Support
-
-- 📖 **Documentation**: Check this README and code comments
-- 🐛 **Issues**: Report bugs on [GitHub Issues](https://github.com/yourusername/codepilot/issues)
-- 💬 **Discussions**: Join [GitHub Discussions](https://github.com/yourusername/codepilot/discussions)
-- 📧 **Email**: Contact us at support@codepilot.dev
-
 ---
 
-**Made with ❤️ by the CodePilot team**
+**Built by Ali Asgar Momin**
