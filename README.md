@@ -228,7 +228,7 @@ MIT License - see [LICENSE](LICENSE) file for details
 
 ## 📬 Contact
 
-Built by [Your Name] - Portfolio project demonstrating:
+Built by Ali Asgar Momin - Portfolio project demonstrating:
 - Semantic search implementation
 - Vector embeddings & similarity
 - Full-stack development
