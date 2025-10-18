@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Search, FileText, Clock, Filter, Code, Copy, ExternalLink } from 'lucide-react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { searchCode, getStatus, SearchResult, StatusResponse } from '@/lib/api';
+import { searchCode, getStatus, SearchResult, StatusResponse } from '../lib/api';
 
 export default function HomePage() {
   const [query, setQuery] = useState('');

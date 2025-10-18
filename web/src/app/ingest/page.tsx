@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Upload, CheckCircle, AlertCircle } from 'lucide-react';
-import { triggerIngest, getStatus, StatusResponse } from '@/lib/api';
+import { triggerIngest, getStatus, StatusResponse } from '../../lib/api';
 
 export default function IngestPage() {
   const [repoPath, setRepoPath] = useState('');
