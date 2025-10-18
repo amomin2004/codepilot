@@ -5,7 +5,7 @@ chardet==5.2.0
 
 # Embeddings & vector search
 sentence-transformers==2.3.1
-faiss-cpu==1.7.4
+faiss-cpu==1.11.0
 torch==2.1.2
 
 # API
