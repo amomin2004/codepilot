@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Upload, FileText, Clock, CheckCircle, AlertCircle } from 'lucide-react';
+import { Upload, CheckCircle, AlertCircle } from 'lucide-react';
 import { triggerIngest, getStatus, StatusResponse } from '@/lib/api';
 
 export default function IngestPage() {
@@ -9,7 +9,15 @@ export default function IngestPage() {
   const [sourceType, setSourceType] = useState<'github' | 'local'>('github');
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<StatusResponse | null>(null);
-  const [ingestResult, setIngestResult] = useState<any>(null);
+  const [ingestResult, setIngestResult] = useState<{
+    success: boolean;
+    files_scanned: number;
+    files_read: number;
+    files_skipped: number;
+    chunks_total: number;
+    avg_lines_per_chunk: number;
+    duration_seconds: number;
+  } | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   // Advanced options
@@ -340,7 +348,7 @@ export default function IngestPage() {
               
               <div>
                 <strong>2. Start indexing:</strong>
-                <p className="mt-1">Enter the path to your repository and click "Start Indexing".</p>
+                <p className="mt-1">Enter the path to your repository and click &ldquo;Start Indexing&rdquo;.</p>
               </div>
               
               <div>
@@ -350,7 +358,7 @@ export default function IngestPage() {
               
               <div>
                 <strong>4. Start searching:</strong>
-                <p className="mt-1">Once indexed, go back to the <a href="/" className="underline">search page</a> to start searching your code!</p>
+                <p className="mt-1">Once indexed, go back to the search page to start searching your code!</p>
               </div>
             </div>
           </div>

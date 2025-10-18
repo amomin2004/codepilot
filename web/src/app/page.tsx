@@ -317,10 +317,10 @@ export default function HomePage() {
                 <div className="bg-blue-50 p-4 rounded-lg">
                   <h3 className="font-medium text-blue-900 mb-2">Example queries:</h3>
                   <ul className="text-sm text-blue-800 space-y-1">
-                    <li>• "How do I validate JWT tokens?"</li>
-                    <li>• "WebSocket connection handling"</li>
-                    <li>• "Database migration functions"</li>
-                    <li>• "Error handling middleware"</li>
+                    <li>• &ldquo;How do I validate JWT tokens?&rdquo;</li>
+                    <li>• &ldquo;WebSocket connection handling&rdquo;</li>
+                    <li>• &ldquo;Database migration functions&rdquo;</li>
+                    <li>• &ldquo;Error handling middleware&rdquo;</li>
                   </ul>
                 </div>
                 <div className="bg-green-50 p-4 rounded-lg">
