@@ -102,15 +102,13 @@ class StatusResponse(BaseModel):
 
 @app.on_event("startup")
 async def startup_event():
-    """Load model and index on startup if they exist."""
+    """Load index on startup. Model loads lazily on first use (memory optimization)."""
     global chunks, index, last_ingest_time
     
     logger.info("Starting CodePilot API...")
     
-    # Load embedding model
-    logger.info("Loading embedding model...")
-    load_embedding_model()
-    logger.info("✓ Model loaded")
+    # Skip model loading at startup - loads on first request (saves memory & startup time)
+    logger.info("Model will load on first search/ingest (lazy loading for fast startup)")
     
     # Load chunks if available
     if CHUNKS_PATH.exists():
@@ -132,7 +130,7 @@ async def startup_event():
     else:
         logger.warning("No index file found. Run /ingest first.")
     
-    logger.info("🚀 CodePilot API ready!")
+    logger.info("🚀 CodePilot API ready! (Model loads on demand)")
 
 
 # ========================
@@ -159,11 +157,12 @@ async def health():
 @app.get("/status", response_model=StatusResponse, tags=["General"])
 async def status():
     """Get system status and statistics."""
+    from embeddings import _model
     return StatusResponse(
         indexed=index is not None and len(chunks) > 0,
         chunks=len(chunks),
         last_ingest=last_ingest_time.isoformat() if last_ingest_time else None,
-        model_loaded=True,  # Loaded on startup
+        model_loaded=_model is not None,  # Check if model has been lazy-loaded
         index_loaded=index is not None,
     )
 

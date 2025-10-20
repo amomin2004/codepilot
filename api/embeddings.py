@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 
 # Global model instance (loaded once)
 _model: Optional[SentenceTransformer] = None
-_model_name = "sentence-transformers/all-MiniLM-L6-v2"
+_model_name = "paraphrase-MiniLM-L3-v2"  # Smaller model: 3 layers vs 6, ~200MB RAM vs ~400MB
 
 
 def load_embedding_model(model_name: str = _model_name, cache_dir: Optional[Path] = None) -> SentenceTransformer:

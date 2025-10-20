@@ -1,4 +1,4 @@
-# Core dependencies for CodePilot
+# Production requirements for CodePilot (memory-optimized for <512MB)
 
 # Ingestion & file processing
 chardet==5.2.0
@@ -6,7 +6,10 @@ chardet==5.2.0
 # Embeddings & vector search
 sentence-transformers==2.3.1
 faiss-cpu==1.11.0
-torch==2.5.0
+
+# CPU-only PyTorch (saves ~200MB by removing CUDA libs)
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.5.0+cpu
 
 # API
 fastapi==0.115.0
@@ -15,12 +18,4 @@ pydantic==2.9.0
 
 # Utilities
 numpy==1.26.3
-
-# Development & Testing
-pytest==7.4.3
 requests==2.31.0
-
-# Evaluation & Metrics
-matplotlib==3.8.2
-seaborn==0.13.0
-
