@@ -1,0 +1,22 @@
+# Render deployment requirements (Linux x86_64, memory-optimized for <512MB)
+
+# Ingestion & file processing
+chardet==5.2.0
+
+# Embeddings & vector search
+sentence-transformers==2.3.1
+faiss-cpu==1.11.0
+
+# CPU-only PyTorch (Linux only - saves ~200MB)
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.5.0+cpu
+
+# API
+fastapi==0.115.0
+uvicorn[standard]==0.32.0
+pydantic==2.9.0
+
+# Utilities
+numpy==1.26.3
+requests==2.31.0
+

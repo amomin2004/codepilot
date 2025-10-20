@@ -5,8 +5,8 @@ services:
     env: python
     region: oregon
     plan: free
-    branch: main
-    buildCommand: pip install -r requirements.txt
+    branch: optimize
+    buildCommand: pip install -r requirements-render.txt
     startCommand: python -m uvicorn api.main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: PYTHON_VERSION
