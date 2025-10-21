@@ -9,7 +9,7 @@ Usage:
 import sys
 import time
 from pathlib import Path
-from ingest import ingest_repo, save_chunks_jsonl
+from api.ingest import ingest_repo, save_chunks_jsonl
 
 
 def main():

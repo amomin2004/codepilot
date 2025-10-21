@@ -6,7 +6,7 @@ Handles filtering, ranking, and result assembly for semantic code search.
 
 from typing import Optional
 import numpy as np
-from ingest import ChunkMetadata
+from api.ingest import ChunkMetadata
 import re
 
 
