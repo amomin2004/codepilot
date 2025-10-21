@@ -14,7 +14,7 @@ from typing import Optional
 from datetime import datetime
 import numpy as np
 
-from ingest import (
+from api.ingest import (
     ingest_repo, 
     save_chunks_jsonl, 
     load_chunks_jsonl, 
@@ -23,9 +23,9 @@ from ingest import (
     clone_github_repo,
     cleanup_temp_repo,
 )
-from embeddings import embed_texts, embed_single, load_embedding_model
-from vector_index import build_index, save_index, load_index, search_index
-from search import search_pipeline
+from api.embeddings import embed_texts, embed_single, load_embedding_model
+from api.vector_index import build_index, save_index, load_index, search_index
+from api.search import search_pipeline
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
