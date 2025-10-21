@@ -17,6 +17,9 @@ CodePilot is a **semantic code search engine** that lets you search your codebas
 - *"How does error handling work?"*
 - *"Show me authentication middleware"*
 
+
+https://github.com/user-attachments/assets/d6b0b21d-5fe0-49a2-9a14-cba8edea377d
+
 ### 🔥 Key Features
 
 - 🧠 **Natural Language Search** - Ask questions in plain English
@@ -30,10 +33,6 @@ CodePilot is a **semantic code search engine** that lets you search your codebas
 - 🐳 **Docker Ready** - One-command deployment
 - 🔌 **RESTful API** - Complete API for integrations
 - ☁️ **Cloud-Ready** - Deploy to Vercel, Railway, or any cloud platform
-
-
-https://github.com/user-attachments/assets/d6b0b21d-5fe0-49a2-9a14-cba8edea377d
-
 
 ## 🏗️ Architecture
 
