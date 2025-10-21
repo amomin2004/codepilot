@@ -31,6 +31,10 @@ CodePilot is a **semantic code search engine** that lets you search your codebas
 - 🔌 **RESTful API** - Complete API for integrations
 - ☁️ **Cloud-Ready** - Deploy to Vercel, Railway, or any cloud platform
 
+
+https://github.com/user-attachments/assets/d6b0b21d-5fe0-49a2-9a14-cba8edea377d
+
+
 ## 🏗️ Architecture
 
 ```
